@@ -29,11 +29,11 @@ task Sensor()
 
 void Procurar()
 {
-		sensor3 = SensorValue[2];
+		sensor3 = SensorValue[S3];
 		writeDebugStream("%d\n",sensor3);
-		sensor1 = SensorValue[0];
+		sensor1 = SensorValue[S1];
 		writeDebugStream("%d\n",sensor1);
-		sensor2 = SensorValue[1];
+		sensor2 = SensorValue[S2];
 		writeDebugStream("%d\n",sensor2);
 		while(sensor1>sensor2 && sensor1>sensor3)
 		{
@@ -58,6 +58,7 @@ void MoveFrente()
 
 task main()
 {
+	nMotorEncoder[motorA] = 0;
 	while(true)
 	{
 		StartTask(Sensor);
@@ -69,12 +70,12 @@ task main()
 				motor[motorB] = 90;
 			if(sensor3<sensor2)
 				motor[motorC] = 90;
-			/*if(sensor1<30)
+			if(sensor1<30)
 			{
 				MoveFrente();
-				while(nMotorEncoder[motorB] < 45*kVelocidade)
+				while(nMotorEncoder[motorA] < 45*kVelocidade)
 					motor[motorA] = 100;
-			}*/
+			}
 		}
 	}
 }
