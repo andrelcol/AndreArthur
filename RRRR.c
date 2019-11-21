@@ -39,12 +39,12 @@ void Procurar()
 		{
 			if(us == 3)
 			{
-				motor[motorA] = 50;
+				motor[motorB] = 50;
 				motor[motorC] = -50;
 			}
 			if(us == 2)
 			{
-				motor[motorA] = -50;
+				motor[motorB] = -50;
 				motor[motorC] = 50;
 			}
 		}
@@ -53,25 +53,28 @@ void Procurar()
 void MoveFrente()
 {
 	motor[motorC] = 100;
-	motor[motorA] = 100;
+	motor[motorB] = 100;
 }
 
 task main()
 {
-	StartTask(Sensor);
-	Procurar();
-	while(sensor1<sensor2 && sensor1<sensor3)
+	while(true)
 	{
-		MoveFrente();
-		if(sensor2<sensor3)
-			motor[motorA] = 90;
-		if(sensor3<sensor2)
-			motor[motorC] = 90;
-		if(sensor1<30)
+		StartTask(Sensor);
+		Procurar();
+		while(sensor1<sensor2 && sensor1<sensor3)
 		{
 			MoveFrente();
-			while(nMotorEncoder[motorB] < 45*kVelocidade)
-				motor[motorA] = 100;
+			if(sensor2<sensor3)
+				motor[motorB] = 90;
+			if(sensor3<sensor2)
+				motor[motorC] = 90;
+			/*if(sensor1<30)
+			{
+				MoveFrente();
+				while(nMotorEncoder[motorB] < 45*kVelocidade)
+					motor[motorA] = 100;
+			}*/
 		}
 	}
 }
